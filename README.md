@@ -82,7 +82,7 @@ EMAIL_PASS=your-app-password
 
 # Admin Configuration
 ADMIN_EMAIL=vivekyadd240706@gmail.com
-ADMIN_PASSWORD=admin123
+ADMIN_PASSWORD=your_secure_admin_password
 
 # Session Configuration
 SESSION_SECRET=your-super-secret-session-key
@@ -215,7 +215,7 @@ Professional email templates for:
 ### Default Admin Account
 
 - Email: `vivekyadd240706@gmail.com`
-- Password: `admin123` (change in production)
+- Password: Set via `ADMIN_PASSWORD` environment variable
 
 ### File Upload Limits
 
@@ -240,7 +240,7 @@ Optimized indexes for:
 | `EMAIL_USER`     | Gmail account for sending emails | -                                            |
 | `EMAIL_PASS`     | Gmail app password               | -                                            |
 | `ADMIN_EMAIL`    | Default admin email              | `vivekyadd240706@gmail.com`                  |
-| `ADMIN_PASSWORD` | Default admin password           | `admin123`                                   |
+| `ADMIN_PASSWORD` | Default admin password           | `your_secure_password`                       |
 | `SESSION_SECRET` | Session encryption key           | Random string                                |
 | `NODE_ENV`       | Environment mode                 | `development`                                |
 | `PORT`           | Server port                      | `3000`                                       |

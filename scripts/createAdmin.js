@@ -74,7 +74,7 @@ async function createAdmin() {
         // Create new admin
         const admin = new Admin({
             email: 'vivekyad240706@gmail.com',
-            password: 'admin123',
+            password: process.env.ADMIN_PASSWORD || 'Vinyas@2K25131107',
             name: 'Vivek Yadav',
             role: 'super_admin',
             permissions: {
@@ -90,7 +90,7 @@ async function createAdmin() {
         await admin.save();
         console.log('✅ Admin created successfully');
         console.log('📧 Email:', admin.email);
-        console.log('🔑 Password: admin123');
+        console.log('🔑 Password: Set via ADMIN_PASSWORD environment variable');
         console.log('👑 Role:', admin.role);
 
         await mongoose.disconnect();
