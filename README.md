@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Vinyas Hackathon - Full Stack Application
 
 A complete hackathon management system with team registration, admin panel, payment verification, and PPT submission functionality.
