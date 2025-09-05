@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+
 # Vinyas Hackathon - Full Stack Application
 
 A complete hackathon management system with team registration, admin panel, payment verification, and PPT submission functionality.
@@ -6,6 +7,7 @@ A complete hackathon management system with team registration, admin panel, paym
 ## 🚀 Features
 
 ### Frontend
+
 - **Responsive Design**: Mobile-first design with auto-hiding navbar
 - **Team Registration**: Complete registration form with validation
 - **PPT Submission**: File upload for presentation submissions
@@ -13,6 +15,7 @@ A complete hackathon management system with team registration, admin panel, paym
 - **Payment Integration**: Payment screenshot upload and verification
 
 ### Backend
+
 - **MongoDB Integration**: Complete database setup with schemas
 - **Authentication**: Secure admin login with OTP verification
 - **File Uploads**: Multer-based file handling for PPTs and images
@@ -59,12 +62,14 @@ vinyas/
 ## 🛠️ Installation & Setup
 
 ### 1. Clone and Install Dependencies
+
 ```bash
 cd "c:\Users\Vivek Yadav\Desktop\Vinyas"
 npm install
 ```
 
 ### 2. Environment Setup
+
 Update the `.env` file with your actual values:
 
 ```env
@@ -89,16 +94,19 @@ FRONTEND_URL=http://localhost:3000
 ```
 
 ### 3. MongoDB Setup
+
 - Install MongoDB locally or use MongoDB Atlas
 - Update the `MONGO_URI` in `.env` file
 - Database and collections will be created automatically
 
 ### 4. Email Configuration
+
 1. Enable 2FA on your Gmail account
 2. Generate an App Password
 3. Update `EMAIL_USER` and `EMAIL_PASS` in `.env`
 
 ### 5. Start the Application
+
 ```bash
 npm start
 ```
@@ -106,6 +114,7 @@ npm start
 ## 📡 API Endpoints
 
 ### Authentication Routes (`/api/auth`)
+
 - `POST /admin/login` - Admin login with email/password
 - `POST /admin/verify-otp` - Verify OTP for admin login
 - `POST /admin/resend-otp` - Resend OTP
@@ -115,6 +124,7 @@ npm start
 - `PUT /admin/profile` - Update admin profile
 
 ### Team Management Routes (`/api/teams`)
+
 - `POST /register` - Register new team
 - `GET /` - Get all teams (admin only)
 - `GET /:id` - Get team by ID (admin only)
@@ -125,6 +135,7 @@ npm start
 - `DELETE /:id` - Delete team (admin only)
 
 ### File Upload Routes (`/api/upload`)
+
 - `POST /ppt-submission` - Submit PPT file
 - `POST /payment-screenshot` - Upload payment screenshot
 - `GET /file/:type/:filename` - Download uploaded file
@@ -134,6 +145,7 @@ npm start
 - `DELETE /file/:type/:filename` - Delete uploaded file (admin only)
 
 ### Page Routes (`/`)
+
 - `GET /` - Home page
 - `GET /register` - Registration page
 - `GET /ppt-submission` - PPT submission page
@@ -144,24 +156,28 @@ npm start
 ## 🗄️ Database Models
 
 ### Team Model
+
 - Team registration information
 - Leader and member details
 - Payment status and details
 - Registration timestamp
 
 ### Admin Model
+
 - Admin authentication
 - Role-based permissions
 - Login attempt tracking
 - Account locking mechanism
 
 ### OTP Model
+
 - OTP generation and verification
 - Expiration handling
 - Rate limiting
 - Purpose tracking
 
 ### PPTSubmission Model
+
 - File upload tracking
 - Submission versioning
 - Review system
@@ -180,6 +196,7 @@ npm start
 ## 📧 Email Templates
 
 Professional email templates for:
+
 - OTP verification
 - Payment confirmation
 - Team notifications
@@ -196,16 +213,20 @@ Professional email templates for:
 ## 🔧 Development
 
 ### Default Admin Account
+
 - Email: `vivekyadd240706@gmail.com`
 - Password: `admin123` (change in production)
 
 ### File Upload Limits
+
 - PPT files: 10MB max
 - Images: 5MB max
 - Supported formats: PPT, PPTX, PDF, JPG, PNG
 
 ### Database Indexes
+
 Optimized indexes for:
+
 - Email lookups
 - Team searches
 - Payment status filtering
@@ -213,32 +234,35 @@ Optimized indexes for:
 
 ## 📝 Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `MONGO_URI` | MongoDB connection string | `mongodb://localhost:27017/vinyas_hackathon` |
-| `EMAIL_USER` | Gmail account for sending emails | - |
-| `EMAIL_PASS` | Gmail app password | - |
-| `ADMIN_EMAIL` | Default admin email | `vivekyadd240706@gmail.com` |
-| `ADMIN_PASSWORD` | Default admin password | `admin123` |
-| `SESSION_SECRET` | Session encryption key | Random string |
-| `NODE_ENV` | Environment mode | `development` |
-| `PORT` | Server port | `3000` |
-| `FRONTEND_URL` | Frontend URL for CORS | `http://localhost:3000` |
+| Variable         | Description                      | Default                                      |
+| ---------------- | -------------------------------- | -------------------------------------------- |
+| `MONGO_URI`      | MongoDB connection string        | `mongodb://localhost:27017/vinyas_hackathon` |
+| `EMAIL_USER`     | Gmail account for sending emails | -                                            |
+| `EMAIL_PASS`     | Gmail app password               | -                                            |
+| `ADMIN_EMAIL`    | Default admin email              | `vivekyadd240706@gmail.com`                  |
+| `ADMIN_PASSWORD` | Default admin password           | `admin123`                                   |
+| `SESSION_SECRET` | Session encryption key           | Random string                                |
+| `NODE_ENV`       | Environment mode                 | `development`                                |
+| `PORT`           | Server port                      | `3000`                                       |
+| `FRONTEND_URL`   | Frontend URL for CORS            | `http://localhost:3000`                      |
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
 1. **MongoDB Connection Error**
+
    - Check if MongoDB is running
    - Verify connection string in `.env`
 
 2. **Email Sending Failed**
+
    - Ensure Gmail 2FA is enabled
    - Use app-specific password
    - Check email credentials
 
 3. **File Upload Issues**
+
    - Check file size limits
    - Verify upload directory permissions
    - Ensure supported file formats
@@ -249,6 +273,7 @@ Optimized indexes for:
    - Verify MongoDB connection
 
 ### Logs
+
 All errors are logged to console with timestamps. Check server logs for detailed error information.
 
 ## 🤝 Contributing
