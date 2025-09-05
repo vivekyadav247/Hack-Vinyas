@@ -1,0 +1,169 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="ppt-submission-wrapper">
+  <div class="container ppt-container">
+    <header class="ppt-header animate-fade-in">
+      <h1 class="ppt-title">PPT Submission</h1>
+      <p class="ppt-subtitle">
+        Submit your innovative solution for Hack Vinyas ⚡
+      </p>
+    </header>
+
+    <form id="pptForm" class="ppt-form animate-slide-up">
+      <!-- Email Section -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="fas fa-envelope"></i> Email Verification
+        </h3>
+        <div class="form-group full-width">
+          <label for="email">
+            <i class="fas fa-envelope"></i> Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your registered email"
+            class="form-input"
+            required
+          />
+          <button type="button" id="sendOtpBtn" class="btn btn-secondary">
+            <i class="fas fa-paper-plane"></i> Send OTP
+          </button>
+        </div>
+      </div>
+
+      <!-- OTP Section -->
+      <div class="form-section" id="otpSection" style="display: none">
+        <h3 class="section-title">
+          <i class="fas fa-shield-alt"></i> OTP Verification
+        </h3>
+        <div class="form-group full-width">
+          <label for="otp"> <i class="fas fa-key"></i> Enter OTP </label>
+          <div class="otp-container">
+            <input
+              type="text"
+              id="otp"
+              name="otp"
+              placeholder="Enter 6-digit OTP"
+              class="form-input"
+              maxlength="6"
+            />
+            <button type="button" id="verifyOtpBtn" class="btn btn-primary">
+              <i class="fas fa-check"></i> Verify OTP
+            </button>
+          </div>
+          <div class="otp-timer">
+            <span id="otpTimer"
+              >Resend OTP in <span id="countdown">60</span>s</span
+            >
+            <button
+              type="button"
+              id="resendOtpBtn"
+              class="btn btn-link"
+              style="display: none"
+            >
+              <i class="fas fa-redo"></i> Resend OTP
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Name (Auto-filled after OTP verification) -->
+      <div class="form-section" id="teamNameSection" style="display: none">
+        <h3 class="section-title">
+          <i class="fas fa-users"></i> Team Information
+        </h3>
+        <div class="form-group full-width">
+          <label for="teamName"> <i class="fas fa-users"></i> Team Name </label>
+          <input
+            type="text"
+            id="teamName"
+            name="teamName"
+            value=""
+            readonly
+            class="form-input readonly-input"
+            title="Team name is auto-filled after email verification"
+          />
+          <div class="readonly-indicator">
+            <i class="fas fa-check-circle"></i> Verified from registration
+          </div>
+        </div>
+      </div>
+
+      <!-- PPT/PDF Upload Section -->
+      <div
+        class="form-section upload-section"
+        id="uploadSection"
+        style="display: none"
+      >
+        <h3 class="section-title">
+          <i class="fas fa-cloud-upload-alt"></i> Upload Your Presentation
+        </h3>
+
+        <div class="upload-container" id="uploadContainer">
+          <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">
+              <i class="fas fa-file-upload"></i>
+            </div>
+            <h4>Drag & Drop your presentation file here</h4>
+            <p>or click to browse files</p>
+            <div class="file-requirements">
+              <span><i class="fas fa-check"></i> .ppt, .pptx, .pdf files</span>
+              <span><i class="fas fa-check"></i> Maximum size: 20MB</span>
+            </div>
+            <input
+              type="file"
+              id="pptFile"
+              name="pptFile"
+              accept=".ppt,.pptx,.pdf"
+              hidden
+            />
+          </div>
+
+          <div class="file-preview" id="filePreview" style="display: none">
+            <div class="file-info">
+              <div class="file-icon">
+                <i class="fas fa-file-powerpoint"></i>
+              </div>
+              <div class="file-details">
+                <h5 id="fileName"></h5>
+                <p id="fileSize"></p>
+                <div class="upload-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                  </div>
+                  <span id="progressText">0%</span>
+                </div>
+              </div>
+              <button type="button" class="remove-file" id="removeFile">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="submission-notes">
+          <h4><i class="fas fa-info-circle"></i> Submission Guidelines</h4>
+          <ul>
+            <li>Include your team introduction and problem statement</li>
+            <li>Showcase your solution architecture and implementation</li>
+            <li>Add demo screenshots or video links if available</li>
+            <li>Highlight innovation and technical challenges solved</li>
+            <li>Include future scope and potential impact</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" id="submitBtn" class="submit-btn" disabled>
+        <span class="btn-text">
+          <i class="fas fa-rocket"></i> Submit Presentation
+        </span>
+        <span class="btn-loading" style="display: none">
+          <i class="fas fa-spinner fa-spin"></i> Uploading...
+        </span>
+      </button>
+    </form>
+  </div>
+</div>

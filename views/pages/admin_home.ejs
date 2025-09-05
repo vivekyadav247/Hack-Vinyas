@@ -1,0 +1,668 @@
+<% layout('layouts/boilerplate') -%>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .admin-container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .admin-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .admin-title {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .admin-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+    color: white;
+  }
+
+  .teams {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+  }
+  .submissions {
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+  }
+  .pending {
+    background: linear-gradient(45deg, #ffecd2, #fcb69f);
+  }
+  .revenue {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+  }
+
+  .stat-label {
+    color: #7f8c8d;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .controls-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .search-input {
+    border: 2px solid #e1e8ed;
+    border-radius: 15px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .search-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
+  }
+
+  .action-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 15px;
+    padding: 12px 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 5px;
+  }
+
+  .action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+  }
+
+  .teams-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+  }
+
+  .team-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px solid #e1e8ed;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .team-card:hover {
+    border-color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .team-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .team-members-section {
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .team-leader-info {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+  }
+
+  .info-item {
+    margin: 8px 0;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-item i {
+    width: 16px;
+    color: #667eea;
+  }
+
+  .info-item strong {
+    min-width: 120px;
+    font-weight: 600;
+  }
+
+  .members-header {
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+
+  .members-list {
+    max-height: 120px;
+    overflow-y: auto;
+  }
+
+  .member-item {
+    font-size: 0.8rem;
+    color: #5a6c7d;
+    margin: 5px 0;
+    padding: 5px 8px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    border-left: 3px solid #667eea;
+  }
+
+  .team-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .action-btn {
+    flex: 1;
+    min-width: 85px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .ppt-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a6f);
+    color: white;
+  }
+
+  .ppt-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+  }
+
+  .ss-btn {
+    background: linear-gradient(45deg, #4ecdc4, #26d0ce);
+    color: white;
+  }
+
+  .ss-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+  }
+
+  .details-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+  }
+
+  .details-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  }
+
+  .mail-btn {
+    background: linear-gradient(45deg, #10b981, #34d399);
+    color: white;
+  }
+
+  .mail-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+  }
+
+  .delete-btn {
+    background: linear-gradient(45deg, #ef4444, #f87171);
+    color: white;
+  }
+
+  .delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+  }
+
+  /* Expandable Details Section */
+  .team-details-expanded {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .expanded-header {
+    border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+
+  .expanded-header h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .expanded-header i {
+    color: #667eea;
+  }
+
+  .team-meta-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 10px;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: #2c3e50;
+  }
+
+  .meta-item i {
+    width: 20px;
+    color: #667eea;
+  }
+
+  .meta-item strong {
+    min-width: 140px;
+  }
+
+  .payment-status {
+    padding: 4px 8px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .all-members-section {
+    margin-bottom: 20px;
+  }
+
+  .all-members-section h5 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+  }
+
+  .all-members-section i {
+    color: #667eea;
+  }
+
+  .members-details-container {
+    display: grid;
+    gap: 15px;
+  }
+
+  .member-detail-item {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 15px;
+    border-left: 3px solid #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .member-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+  }
+
+  .member-header i {
+    color: #667eea;
+  }
+
+  .member-header strong {
+    color: #2c3e50;
+    font-size: 1rem;
+  }
+
+  .member-role {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  .member-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px;
+  }
+
+  .member-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #5a6c7d;
+  }
+
+  .member-info-item i {
+    width: 14px;
+    color: #667eea;
+  }
+
+  .collapse-section {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(102, 126, 234, 0.2);
+  }
+
+  .collapse-btn {
+    background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto;
+  }
+
+  .collapse-btn:hover {
+    background: linear-gradient(45deg, #7f8c8d, #6c7b7d);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .no-members {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    padding: 20px;
+  }
+
+  .team-info {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin: 5px 0;
+  }
+
+  .team-status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .status-paid {
+    background: #d4edda;
+    color: #155724;
+  }
+  .status-pending {
+    background: #fff3cd;
+    color: #856404;
+  }
+  .status-unpaid {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+
+  .error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .admin-container {
+      padding: 15px;
+    }
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    .teams-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    .admin-title {
+      font-size: 2rem;
+    }
+
+    .team-meta-info {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .member-info-grid {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .team-actions {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<div class="admin-container">
+  <!-- Header -->
+  <div class="admin-header">
+    <h1 class="admin-title">🏠 Admin Home</h1>
+    <p class="admin-subtitle">
+      Hack Vinyas Hackathon - Complete Dashboard Control
+    </p>
+  </div>
+
+  <!-- Statistics -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon teams">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="stat-number" id="total-teams">-</div>
+      <div class="stat-label">Total Teams</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon submissions">
+        <i class="fas fa-file-powerpoint"></i>
+      </div>
+      <div class="stat-number" id="total-submissions">-</div>
+      <div class="stat-label">PPT Submissions</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon pending">
+        <i class="fas fa-clock"></i>
+      </div>
+      <div class="stat-number" id="pending-submissions">-</div>
+      <div class="stat-label">Pending PPTs</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon revenue">
+        <i class="fas fa-rupee-sign"></i>
+      </div>
+      <div class="stat-number" id="total-revenue">-</div>
+      <div class="stat-label">Total Revenue</div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls-section">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control search-input"
+          id="searchTeams"
+          placeholder="🔍 Search teams, colleges, or members..."
+        />
+      </div>
+      <div class="col-md-6 text-end">
+        <button class="action-btn" onclick="refreshData()">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+        <button class="action-btn" onclick="exportData()">
+          <i class="fas fa-download"></i> Export
+        </button>
+        <button class="action-btn" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teams Section -->
+  <div class="teams-section">
+    <h2 class="section-title">
+      <i class="fas fa-users"></i>
+      Registered Teams
+    </h2>
+    <div id="teams-container">
+      <div class="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading teams data...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Load Admin Dashboard JavaScript -->
+<script src="/js/admin_home.js"></script>

@@ -1,0 +1,435 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="snap-container">
+    <!-- HERO -->
+    <section class="hero snap" id="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title glitch-text">Hack Vinya⚡ 2K25</h1>
+        <p class="hero-sub">Unleash Innovation 🚀 — a 24-hour hackathon for makers & dreamers</p>
+        <div class="hero-cta-wrap">
+          <button id="joinBtn" class="btn btn-neon">Join the Hackathon</button>
+          <a href="/register" class="btn btn-outline-neon ms-3">Register Now</a>
+        </div>
+        
+        <div class="hero-stats">
+          <div class="stat-item animate-on-scroll">
+            <i class="fas fa-clock stat-icon"></i>
+            <span class="stat-number">24</span>
+            <span class="stat-label">Hours</span>
+          </div>
+          <div class="stat-item animate-on-scroll">
+            <i class="fas fa-gift stat-icon"></i>
+            <span class="stat-number">Exclusive</span>
+            <span class="stat-label">Prizes</span>
+          </div>
+          <div class="stat-item animate-on-scroll">
+            <i class="fas fa-users stat-icon"></i>
+            <span class="stat-number">150+</span>
+            <span class="stat-label">Participants</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Floating Elements -->
+      <div class="floating-element">
+        <i class="fas fa-code fa-3x"></i>
+      </div>
+      <div class="floating-element">
+        <i class="fas fa-lightbulb fa-3x"></i>
+      </div>
+      <div class="floating-element">
+        <i class="fas fa-rocket fa-3x"></i>
+      </div>
+      
+      <!-- Thunder Element -->
+      <div class="thunder-animation">
+        <i class="fas fa-bolt fa-4x"></i>
+      </div>
+    </section>
+
+    <!-- HACK TASKS -->
+    <section class="section snap" id="cards">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="text-gradient">Hackathon Tasks & Submissions</h2>
+          <p class="lead">Your journey to innovation starts here. Choose your path and make your mark!</p>
+        </div>
+        <div class="cards-grid">
+          <!-- Problem statements -->
+          <article class="card card-neon" id="problemsCard">
+            <div class="task-icon">
+              <i class="fas fa-tasks"></i>
+            </div>
+            <h3>Problem Statements</h3>
+            <p class="task-description">Explore cutting-edge challenges from industry leaders and choose your battlefield.</p>
+            <ul class="problem-list">
+              <li>All teams must choose their problem statement from the official <strong>SIH portal</strong></li>
+              <li>Browse through diverse categories: Healthcare, FinTech, Education, and more</li>
+              <li>Choose <strong>One</strong> problem statement that ignites your passion</li>
+            </ul>
+            <button class="btn btn-neon" onclick="window.location.href='https://sih.gov.in/sih2025PS'">
+              <i class="fas fa-external-link-alt me-2"></i>Explore Problems
+            </button>
+          </article>
+
+          <!-- Registration -->
+          <article class="card card-neon" id="regCard">
+            <div class="task-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Team Registration</h3>
+            <p class="task-description">Assemble your dream team and register for the ultimate coding adventure.</p>
+            <ul class="info-list">
+              <li>Team size: <strong>6 members maximum</strong></li>
+              <li>At least <strong>1 female member</strong> required</li>
+              <li>Only the <strong>Team Leader</strong> needs to register</li>
+              <li>Entry Fee: <strong>₹600 per team</strong></li>
+            </ul>
+            <button class="btn btn-neon" onclick="window.location.href='/register'">
+              <i class="fas fa-user-plus me-2"></i>Register Team
+            </button>
+          </article>
+
+          <!-- PPT Submission -->
+          <article class="card card-neon" id="pptCard">
+            <div class="task-icon">
+              <i class="fas fa-upload"></i>
+            </div>
+            <h3>Solution Submission</h3>
+            <p class="task-description">Present your innovative solution and compete for amazing prizes.</p>
+            <ul class="info-list">
+              <li>Submit your solution presentation after registration</li>
+              <li>Accepted formats: <strong>.pdf / .pptx</strong></li>
+              <li>Maximum file size: <strong>20MB</strong></li>
+              <li>Include demo videos or prototypes</li>
+            </ul>
+            <button class="btn btn-neon" onclick="window.location.href='/ppt-submission'">
+              <i class="fas fa-cloud-upload-alt me-2"></i>Submit Solution
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="section snap" id="schedule">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="text-gradient">Event Timeline</h2>
+          <p class="lead">24 hours of pure innovation, collaboration, and coding excellence</p>
+        </div>
+        <div class="sih-timeline">
+          <!-- Day 1 Header -->
+          <div class="timeline-day-header">
+            <h3>Day 1</h3>
+          </div>
+          
+          <!-- Day 1 Events -->
+          <div class="timeline-event" data-time="10:00">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-user-check"></i></div>
+                <div class="event-time">10:00 AM - 10:30 AM</div>
+              </div>
+              <h4>Registration & Verification</h4>
+              <p>Team registration, document verification and event check-in</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Main Auditorium</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="10:30">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-flag"></i></div>
+                <div class="event-time">10:30 AM - 12:00 PM</div>
+              </div>
+              <h4>Inauguration Ceremony</h4>
+              <p>Opening ceremony, keynote speeches and problem statement reveal</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Main Auditorium</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="12:00">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-utensils"></i></div>
+                <div class="event-time">12:00 PM - 12:40 PM</div>
+              </div>
+              <h4>Lunch Break</h4>
+              <p>Networking lunch and team preparation time</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Cafeteria</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="13:00">
+            <div class="event-connector"></div>
+            <div class="event-card highlight">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-code"></i></div>
+                <div class="event-time">1:00 PM onwards</div>
+              </div>
+              <h4>Hacking Starts</h4>
+              <p>24-hour coding marathon begins - Build your solution!</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Innovation Labs</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="18:00">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="event-time">6:00 PM - 7:00 PM</div>
+              </div>
+              <h4>Mentorship Round 1</h4>
+              <p>First mentoring session with industry experts</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Seminar Halls</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="20:00">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-moon"></i></div>
+                <div class="event-time">8:00 PM - 9:00 PM</div>
+              </div>
+              <h4>Dinner</h4>
+              <p>Evening dinner and team collaboration time</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Cafeteria</div>
+            </div>
+          </div>
+
+          <!-- Day 2 Header -->
+          <div class="timeline-day-header day2">
+            <h3>Day 2</h3>
+          </div>
+
+          <!-- Day 2 Events -->
+          <div class="timeline-event" data-time="08:00">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-sun"></i></div>
+                <div class="event-time">8:00 AM - 8:30 AM</div>
+              </div>
+              <h4>Breakfast</h4>
+              <p>Morning breakfast and fresh start for Day 2</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Cafeteria</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="10:00">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-users"></i></div>
+                <div class="event-time">10:00 AM - 11:00 AM</div>
+              </div>
+              <h4>Mentorship Round 2</h4>
+              <p>Final mentoring session and solution refinement</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Seminar Halls</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="12:00">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-utensils"></i></div>
+                <div class="event-time">12:00 PM - 12:40 PM</div>
+              </div>
+              <h4>Lunch Break</h4>
+              <p>Final lunch before submission and presentations</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Cafeteria</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="13:00">
+            <div class="event-connector"></div>
+            <div class="event-card highlight">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-stop-circle"></i></div>
+                <div class="event-time">1:00 PM</div>
+              </div>
+              <h4>Hackathon Ends</h4>
+              <p>Final submission deadline - Solutions must be submitted</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Innovation Labs</div>
+            </div>
+          </div>
+
+          <div class="timeline-event" data-time="13:30">
+            <div class="event-connector"></div>
+            <div class="event-card">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-gavel"></i></div>
+                <div class="event-time">1:30 PM - 2:30 PM</div>
+              </div>
+              <h4>Judging</h4>
+              <p>Expert panel evaluation and team presentations</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Presentation Halls</div>
+            </div>
+          </div>
+
+          <div class="timeline-event last" data-time="14:30">
+            <div class="event-connector"></div>
+            <div class="event-card highlight">
+              <div class="event-header">
+                <div class="event-icon"><i class="fas fa-trophy"></i></div>
+                <div class="event-time">2:30 PM - 4:00 PM</div>
+              </div>
+              <h4>Closing Ceremony</h4>
+              <p>Winner announcement, awards and celebration</p>
+              <div class="event-location"><i class="fas fa-map-marker-alt"></i> Main Auditorium</div>
+            </div>
+          </div>
+        </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section snap" id="about">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h2 class="text-gradient mb-4">About Hack Vinyas ⚡</h2>
+            <p class="lead mb-4">Hack Vinyas is a 24-hour innovation marathon where creativity meets technology. Build groundbreaking projects, collaborate with mentors, and showcase ideas that solve real-world problems.</p>
+            <div class="about-features">
+              <div class="feature-item">
+                <i class="fas fa-code feature-icon"></i>
+                <div>
+                  <h4>Code & Create</h4>
+                  <p>Transform ideas into working prototypes with cutting-edge technologies</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-users feature-icon"></i>
+                <div>
+                  <h4>Collaborate & Learn</h4>
+                  <p>Work with diverse teams and learn from industry experts and mentors</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-trophy feature-icon"></i>
+                <div>
+                  <h4>Compete & Win</h4>
+                  <p>Showcase your innovation and compete for recognition and amazing prizes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="about-stats">
+              <div class="stat-card">
+                <h3>150+</h3>
+                <p>Expected Registrations</p>
+              </div>
+              <div class="stat-card">
+                <h3>5+</h3>
+                <p>Industry Mentors</p>
+              </div>
+              <div class="stat-card">
+                <h3>100+</h3>
+                <p>Problem Statements</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RULES -->
+    <section class="section snap" id="rules">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="text-gradient">Competition Rules</h2>
+          <p class="lead">Important guidelines for all participants - Please read carefully</p>
+        </div>
+        <div class="rules-grid">
+          <div class="rule-card">
+            <div class="rule-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4>Team Presence</h4>
+            <p>All team members must be present in the offline round. No virtual participation allowed.</p>
+          </div>
+          
+          <div class="rule-card">
+            <div class="rule-icon">
+              <i class="fas fa-id-card"></i>
+            </div>
+            <h4>ID Cards Mandatory</h4>
+            <p>ID Cards are compulsory for everyone. College ID or valid government ID required for verification.</p>
+          </div>
+          
+          <div class="rule-card">
+            <div class="rule-icon">
+              <i class="fas fa-user-friends"></i>
+            </div>
+            <h4>Team Composition</h4>
+            <p>Teams must have exactly 6 members with at least 1 girl member compulsory.</p>
+          </div>
+          
+          <div class="rule-card">
+            <div class="rule-icon">
+              <i class="fas fa-file-powerpoint"></i>
+            </div>
+            <h4>PPT Template</h4>
+            <p>Presentation template must follow SIH (Smart India Hackathon) official format only.</p>
+          </div>
+          
+          <div class="rule-card">
+            <div class="rule-icon">
+              <i class="fas fa-tasks"></i>
+            </div>
+            <h4>Problem Statement</h4>
+            <p>Problem statements must be from SIH 2025 official list only. No custom problems allowed.</p>
+          </div>
+          
+          <div class="rule-card">
+            <div class="rule-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h4>College Affiliation</h4>
+            <p>All team members must be from JIT Borawan college only. Inter-college teams not permitted.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section snap" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="text-gradient">FAQ</h2>
+          <p class="lead">Everything you need to know about Hack Vinyas</p>
+        </div>
+        <div class="faq-grid">
+          <details class="faq-item"><summary>Who can participate?</summary><p>All students of JIT Borawan.</p></details>
+          <details class="faq-item"><summary>What technologies can we use?</summary><p>You can use any programming language, framework, or technology stack. There are no restrictions on tech choices.</p></details>
+          <details class="faq-item"><summary>Any registration fee?</summary><p>Yes, ₹600 per team.</p></details>
+          <details class="faq-item"><summary>Will accommodation be provided?</summary><p>Yes, accommodation is provided by JIT Borawan.</p></details>
+          <details class="faq-item"><summary>Will organizers provide hardware components for hardware problems?</summary><p>No.</p></details>
+        </div>
+      </div>
+    </section>
+</div>
+
+<!-- PROBLEMS MODAL -->
+<div id="problemsModal" class="modal" aria-hidden="true">
+  <div class="modal-panel">
+    <button class="modal-close" aria-label="Close" onclick="closeProblemsModal()">✕</button>
+    <h3>Problem Statement Details</h3>
+    <ol>
+      <li><strong>WaveAI</strong> — Data-driven model to predict optimal irrigation windows; include a small prototype or mock API.</li>
+      <li><strong>GreenGrid</strong> — Marketplace prototype connecting suppliers and farmers; focus on UX and minimal viable product.</li>
+      <li><strong>HealthPulse</strong> — Dashboard + mobile mockup to collect and visualize low-cost sensor data.</li>
+    </ol>
+  </div>
+</div>

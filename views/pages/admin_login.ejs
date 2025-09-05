@@ -1,0 +1,127 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="admin-login-wrapper">
+  <div class="container admin-container">
+    <header class="admin-header animate-fade-in">
+      <h1 class="admin-title">Admin Login</h1>
+      <p class="admin-subtitle">Secure access to Hack Vinyas Admin Panel 🔒</p>
+    </header>
+
+    <form id="adminLoginForm" class="admin-form animate-slide-up">
+      <!-- Email and Password Section -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="fas fa-shield-alt"></i> Admin Login
+        </h3>
+        <div class="form-group full-width">
+          <label for="adminEmail">
+            <i class="fas fa-envelope"></i> Admin Email Address
+          </label>
+          <input
+            type="email"
+            id="adminEmail"
+            name="adminEmail"
+            placeholder="Enter admin email address"
+            class="form-input"
+            required
+          />
+        </div>
+        <div class="form-group full-width">
+          <label for="adminPassword">
+            <i class="fas fa-lock"></i> Password
+          </label>
+          <input
+            type="password"
+            id="adminPassword"
+            name="adminPassword"
+            placeholder="Enter password"
+            class="form-input"
+            required
+          />
+        </div>
+        <button type="submit" id="loginBtn" class="btn btn-primary">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Admin Login JavaScript
+  document.addEventListener("DOMContentLoaded", function () {
+    const adminLoginForm = document.getElementById("adminLoginForm");
+    const adminEmailInput = document.getElementById("adminEmail");
+    const adminPasswordInput = document.getElementById("adminPassword");
+    const loginBtn = document.getElementById("loginBtn");
+
+    // Handle form submission
+    adminLoginForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const email = adminEmailInput.value.trim();
+      const password = adminPasswordInput.value.trim();
+
+      if (!email || !password) {
+        showNotification("Please enter both email and password", "error");
+        return;
+      }
+
+      // Show loading state
+      loginBtn.disabled = true;
+      loginBtn.innerHTML =
+        '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+      try {
+        const response = await fetch("/api/auth/admin/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          showNotification("Login successful! Redirecting...", "success");
+          loginBtn.innerHTML = '<i class="fas fa-check"></i> Login Successful';
+
+          setTimeout(() => {
+            window.location.href = result.redirect || "/admin/dashboard";
+          }, 1500);
+        } else {
+          showNotification(result.message || "Login failed", "error");
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        showNotification("Login failed. Please try again.", "error");
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+      }
+    });
+
+    // Notification function
+    function showNotification(message, type) {
+      const notification = document.createElement("div");
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+      <i class="fas fa-${
+        type === "success" ? "check-circle" : "exclamation-circle"
+      }"></i>
+      ${message}
+    `;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+  });
+</script>

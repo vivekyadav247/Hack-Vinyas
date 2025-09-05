@@ -1,0 +1,117 @@
+<nav class="navbar navbar-expand-lg navbar-neon fixed-top">
+  <div class="container">
+    <a class="navbar-brand vinyas-brand" href="/">
+      <i class="fas fa-bolt me-2"></i>Hack Vinyas
+    </a>
+
+    <button
+      class="navbar-toggler border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="fas fa-home me-1"></i>Home
+          </a>
+        </li>
+        <% if (typeof currentPage !== 'undefined' && currentPage ===
+        'ppt-submission') { %>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="downloadPptBtn">
+            <i class="fas fa-download me-1"></i>Download Template
+          </a>
+        </li>
+        <% } else if (typeof currentPage !== 'undefined' && currentPage ===
+        'main') { %>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            aria-expanded="false"
+          >
+            <i class="fas fa-info-circle me-1"></i
+            ><span id="dropdownText">About</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li>
+              <a class="dropdown-item" href="/#about" data-section="about">
+                <i class="fas fa-info-circle me-2"></i>About
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/#rules" data-section="rules">
+                <i class="fas fa-list-check me-2"></i>Rules
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="/#schedule"
+                data-section="schedule"
+              >
+                <i class="fas fa-calendar-alt me-2"></i>Event Timeline
+              </a>
+            </li>
+          </ul>
+        </li>
+        <% } else { %>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            aria-expanded="false"
+          >
+            <i class="fas fa-info-circle me-1"></i>About
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li>
+              <a class="dropdown-item" href="/#about">
+                <i class="fas fa-info-circle me-2"></i>About
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/#rules">
+                <i class="fas fa-list-check me-2"></i>Rules
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/#schedule">
+                <i class="fas fa-calendar-alt me-2"></i>Event Timeline
+              </a>
+            </li>
+          </ul>
+        </li>
+        <% } %>
+        <li class="nav-item">
+          <a class="nav-link" href="/ppt-submission">
+            <i class="fas fa-upload me-1"></i>Submit PPT
+          </a>
+        </li>
+        <% if (typeof currentPage !== 'undefined' && currentPage === 'main') {
+        %>
+        <li class="nav-item">
+          <button class="btn btn-admin-nav" id="adminBtn">
+            <i class="fas fa-shield-alt me-1"></i>Admin
+          </button>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hover zone for auto-hiding navbar -->
+<div class="navbar-hover-zone" id="navbarHoverZone"></div>
+
+<!-- Spacer for fixed navbar -->
+<div style="height: 76px"></div>

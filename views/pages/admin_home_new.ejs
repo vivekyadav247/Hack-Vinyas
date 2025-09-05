@@ -1,0 +1,601 @@
+<% layout('layouts/boilerplate') -%>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .admin-container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .admin-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .admin-title {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .admin-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+    color: white;
+  }
+
+  .teams {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+  }
+  .submissions {
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+  }
+  .pending {
+    background: linear-gradient(45deg, #ffecd2, #fcb69f);
+  }
+  .revenue {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+  }
+
+  .stat-label {
+    color: #7f8c8d;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .controls-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .search-input {
+    border: 2px solid #e1e8ed;
+    border-radius: 15px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .search-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
+  }
+
+  .action-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 15px;
+    padding: 12px 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 5px;
+  }
+
+  .action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+  }
+
+  .teams-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+  }
+
+  .team-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px solid #e1e8ed;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .team-card:hover {
+    border-color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .team-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .team-info {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin: 5px 0;
+  }
+
+  .team-status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .status-paid {
+    background: #d4edda;
+    color: #155724;
+  }
+  .status-pending {
+    background: #fff3cd;
+    color: #856404;
+  }
+  .status-unpaid {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+
+  .error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .admin-container {
+      padding: 15px;
+    }
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    .teams-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    .admin-title {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+<div class="admin-container">
+  <!-- Header -->
+  <div class="admin-header">
+    <h1 class="admin-title">🏠 Admin Home</h1>
+    <p class="admin-subtitle">
+      Hack Vinyas Hackathon - Complete Dashboard Control
+    </p>
+  </div>
+
+  <!-- Statistics -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon teams">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="stat-number" id="total-teams">-</div>
+      <div class="stat-label">Total Teams</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon submissions">
+        <i class="fas fa-file-powerpoint"></i>
+      </div>
+      <div class="stat-number" id="total-submissions">-</div>
+      <div class="stat-label">PPT Submissions</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon pending">
+        <i class="fas fa-clock"></i>
+      </div>
+      <div class="stat-number" id="pending-submissions">-</div>
+      <div class="stat-label">Pending PPTs</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon revenue">
+        <i class="fas fa-rupee-sign"></i>
+      </div>
+      <div class="stat-number" id="total-revenue">-</div>
+      <div class="stat-label">Total Revenue</div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls-section">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control search-input"
+          id="searchTeams"
+          placeholder="🔍 Search teams, colleges, or members..."
+        />
+      </div>
+      <div class="col-md-6 text-end">
+        <button class="action-btn" onclick="refreshData()">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+        <button class="action-btn" onclick="exportData()">
+          <i class="fas fa-download"></i> Export
+        </button>
+        <button class="action-btn" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teams Section -->
+  <div class="teams-section">
+    <h2 class="section-title">
+      <i class="fas fa-users"></i>
+      Registered Teams
+    </h2>
+    <div id="teams-container">
+      <div class="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading teams data...
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Global variables
+  let teamsData = [];
+  let statsData = {};
+
+  // Initialize dashboard
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("🚀 Admin Home Dashboard Initializing...");
+    loadDashboardData();
+    setupSearchFunctionality();
+  });
+
+  // Load dashboard data
+  async function loadDashboardData() {
+    try {
+      console.log("📊 Loading dashboard data...");
+      const response = await fetch("/api/admin/dashboard");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("✅ Dashboard data loaded:", data);
+
+      statsData = data.stats;
+      teamsData = data.teams;
+
+      updateStatistics();
+      renderTeams();
+    } catch (error) {
+      console.error("❌ Error loading dashboard data:", error);
+      showError("Failed to load dashboard data. Please refresh the page.");
+    }
+  }
+
+  // Update statistics display
+  function updateStatistics() {
+    console.log("📈 Updating statistics...");
+
+    document.getElementById("total-teams").textContent =
+      statsData.totalTeams || 0;
+    document.getElementById("total-submissions").textContent =
+      statsData.totalSubmissions || 0;
+    document.getElementById("pending-submissions").textContent =
+      statsData.pendingSubmissions || 0;
+    document.getElementById("total-revenue").textContent =
+      "₹" + (statsData.totalRevenue || 0);
+  }
+
+  // Render teams
+  function renderTeams() {
+    console.log("👥 Rendering teams...");
+    const container = document.getElementById("teams-container");
+
+    if (!teamsData || teamsData.length === 0) {
+      container.innerHTML =
+        '<div class="loading">No teams registered yet.</div>';
+      return;
+    }
+
+    const teamsHTML = teamsData
+      .map(
+        (team) => `
+        <div class="team-card" onclick="viewTeamDetails('${team._id}')">
+            <div class="team-name">${team.teamName}</div>
+            <div class="team-info">
+                <i class="fas fa-university"></i> ${team.college}
+            </div>
+            <div class="team-info">
+                <i class="fas fa-users"></i> ${team.members.length} members
+            </div>
+            <div class="team-info">
+                <i class="fas fa-envelope"></i> ${team.leadEmail}
+            </div>
+            <div class="team-info">
+                <i class="fas fa-phone"></i> ${team.leadPhone}
+            </div>
+            <span class="team-status status-${team.paymentStatus}">
+                ${team.paymentStatus.toUpperCase()}
+            </span>
+        </div>
+    `
+      )
+      .join("");
+
+    container.innerHTML = `<div class="teams-grid">${teamsHTML}</div>`;
+  }
+
+  // Setup search functionality
+  function setupSearchFunctionality() {
+    const searchInput = document.getElementById("searchTeams");
+
+    searchInput.addEventListener("input", function () {
+      const searchTerm = this.value.toLowerCase();
+      filterTeams(searchTerm);
+    });
+  }
+
+  // Filter teams based on search
+  function filterTeams(searchTerm) {
+    if (!searchTerm) {
+      renderTeams();
+      return;
+    }
+
+    const filteredTeams = teamsData.filter(
+      (team) =>
+        team.teamName.toLowerCase().includes(searchTerm) ||
+        team.college.toLowerCase().includes(searchTerm) ||
+        team.leadEmail.toLowerCase().includes(searchTerm) ||
+        team.members.some(
+          (member) =>
+            member.name.toLowerCase().includes(searchTerm) ||
+            member.email.toLowerCase().includes(searchTerm)
+        )
+    );
+
+    const container = document.getElementById("teams-container");
+
+    if (filteredTeams.length === 0) {
+      container.innerHTML =
+        '<div class="loading">No teams match your search.</div>';
+      return;
+    }
+
+    const teamsHTML = filteredTeams
+      .map(
+        (team) => `
+        <div class="team-card" onclick="viewTeamDetails('${team._id}')">
+            <div class="team-name">${team.teamName}</div>
+            <div class="team-info">
+                <i class="fas fa-university"></i> ${team.college}
+            </div>
+            <div class="team-info">
+                <i class="fas fa-users"></i> ${team.members.length} members
+            </div>
+            <div class="team-info">
+                <i class="fas fa-envelope"></i> ${team.leadEmail}
+            </div>
+            <div class="team-info">
+                <i class="fas fa-phone"></i> ${team.leadPhone}
+            </div>
+            <span class="team-status status-${team.paymentStatus}">
+                ${team.paymentStatus.toUpperCase()}
+            </span>
+        </div>
+    `
+      )
+      .join("");
+
+    container.innerHTML = `<div class="teams-grid">${teamsHTML}</div>`;
+  }
+
+  // View team details
+  function viewTeamDetails(teamId) {
+    console.log("👁️ Viewing team details for:", teamId);
+    const team = teamsData.find((t) => t._id === teamId);
+
+    if (!team) {
+      alert("Team not found!");
+      return;
+    }
+
+    const membersHTML = team.members
+      .map(
+        (member) => `
+        <div class="member-info">
+            <strong>${member.name}</strong><br>
+            📧 ${member.email}<br>
+            📱 ${member.phone}<br>
+            🎓 ${member.year} Year, ${member.branch}
+        </div>
+    `
+      )
+      .join("<hr>");
+
+    const detailsHTML = `
+        <h4>🏆 ${team.teamName}</h4>
+        <p><strong>🏫 College:</strong> ${team.college}</p>
+        <p><strong>👨‍💼 Team Lead:</strong> ${team.leadEmail}</p>
+        <p><strong>📞 Contact:</strong> ${team.leadPhone}</p>
+        <p><strong>💰 Payment Status:</strong> 
+            <span class="team-status status-${team.paymentStatus}">
+                ${team.paymentStatus.toUpperCase()}
+            </span>
+        </p>
+        <p><strong>📅 Registered:</strong> ${new Date(
+          team.createdAt
+        ).toLocaleDateString()}</p>
+        
+        <h5>👥 Team Members:</h5>
+        ${membersHTML}
+    `;
+
+    // Create modal or alert
+    if (
+      confirm(
+        `Team Details:\n\n${team.teamName}\nCollege: ${team.college}\nMembers: ${team.members.length}\nStatus: ${team.paymentStatus}\n\nClick OK to see full details in console.`
+      )
+    ) {
+      console.log("📋 Full Team Details:", team);
+    }
+  }
+
+  // Refresh data
+  async function refreshData() {
+    console.log("🔄 Refreshing dashboard data...");
+    const container = document.getElementById("teams-container");
+    container.innerHTML =
+      '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Refreshing...</div>';
+
+    await loadDashboardData();
+  }
+
+  // Export data
+  function exportData() {
+    console.log("📤 Exporting data...");
+    const dataStr = JSON.stringify(
+      {
+        stats: statsData,
+        teams: teamsData,
+        exportDate: new Date().toISOString(),
+      },
+      null,
+      2
+    );
+
+    const dataBlob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(dataBlob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `hack_vinyas_admin_data_${
+      new Date().toISOString().split("T")[0]
+    }.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+    alert("✅ Data exported successfully!");
+  }
+
+  // Logout
+  function logout() {
+    if (confirm("Are you sure you want to logout?")) {
+      console.log("👋 Logging out...");
+      window.location.href = "/admin/login";
+    }
+  }
+
+  // Show error
+  function showError(message) {
+    const container = document.getElementById("teams-container");
+    container.innerHTML = `<div class="error">❌ ${message}</div>`;
+  }
+
+  // API Error handling
+  window.addEventListener("unhandledrejection", function (event) {
+    console.error("🚨 Unhandled promise rejection:", event.reason);
+    showError("An unexpected error occurred. Please refresh the page.");
+  });
+
+  console.log("✅ Admin Home Dashboard Script Loaded Successfully!");
+</script>

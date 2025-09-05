@@ -1,0 +1,638 @@
+/* Enhanced PPT Submission Page Styles */
+
+.ppt-submission-wrapper {
+  min-height: 100vh;
+  position: relative;
+}
+
+.back-button {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(26, 26, 46, 0.9);
+  border: 2px solid rgba(6, 182, 212, 0.3);
+  border-radius: 50px;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.back-button:hover {
+  background: var(--accent-cyan);
+  color: white;
+  transform: translateX(-5px);
+  box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4);
+}
+
+.ppt-container {
+  padding: 6rem 2rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ppt-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2.5rem;
+  background: rgba(26, 26, 46, 0.8);
+  border-radius: 25px;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+}
+
+.ppt-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.ppt-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+.ppt-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 300;
+}
+
+.ppt-form {
+  background: rgba(26, 26, 46, 0.8);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 25px;
+  padding: 3rem;
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.ppt-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.form-section {
+  margin-bottom: 3rem;
+}
+
+/* Add spacing between email input and Send OTP button */
+.form-section .btn {
+  margin-top: 1rem;
+}
+
+.section-title {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), transparent);
+  margin-left: 1rem;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(14, 17, 23, 0.8);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  border-radius: 15px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.readonly-input {
+  background: rgba(14, 17, 23, 0.5);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+.readonly-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.upload-section {
+  background: rgba(14, 17, 23, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.upload-section:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
+}
+
+.upload-container {
+  position: relative;
+}
+
+.upload-area {
+  border: 2px dashed rgba(139, 92, 246, 0.4);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  background: rgba(26, 26, 46, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-area:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.05);
+}
+
+.upload-area:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.05);
+}
+
+.upload-area.dragover {
+  border-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.1);
+  transform: scale(1.02);
+}
+
+.upload-icon {
+  font-size: 4rem;
+  color: var(--accent-cyan);
+  margin-bottom: 1rem;
+}
+
+.upload-area h4 {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.upload-area p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.file-requirements {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.file-requirements span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-requirements i {
+  color: var(--accent-green);
+}
+
+.file-preview {
+  background: rgba(26, 26, 46, 0.8);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.file-icon {
+  font-size: 2.5rem;
+  color: var(--accent-cyan);
+}
+
+.file-details {
+  flex: 1;
+}
+
+.file-details h5 {
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.file-details p {
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.upload-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+#progressText {
+  color: var(--accent-cyan);
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 40px;
+}
+
+.remove-file {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.remove-file:hover {
+  background: #ef4444;
+  color: white;
+  transform: scale(1.1);
+}
+
+.submission-notes {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(6, 182, 212, 0.05);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 15px;
+}
+
+.submission-notes h4 {
+  color: var(--accent-cyan);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submission-notes ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.submission-notes li {
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.submission-notes li::before {
+  content: '•';
+  color: var(--accent-cyan);
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1.5rem;
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.submit-btn:disabled {
+  background: rgba(139, 92, 246, 0.3);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.submit-btn:not(:disabled):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4);
+}
+
+.submit-btn.loading .btn-text {
+  display: none;
+}
+
+.submit-btn.loading .btn-loading {
+  display: inline-block;
+}
+
+.ppt-footer {
+  background: rgba(10, 10, 15, 0.95);
+  border-top: 1px solid rgba(139, 92, 246, 0.3);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.ppt-footer p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 768px) {
+  .back-button {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .ppt-container {
+    padding: 5rem 1rem 2rem;
+  }
+  
+  .ppt-title {
+    font-size: 2.2rem;
+  }
+  
+  .ppt-form {
+    padding: 2rem;
+  }
+  
+  .upload-area {
+    padding: 2rem 1rem;
+  }
+  
+  .file-requirements {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ppt-title {
+    font-size: 1.8rem;
+  }
+  
+  .ppt-form {
+    padding: 1.5rem;
+  }
+  
+  .form-input {
+    padding: 0.875rem 1rem;
+  }
+  
+  .submit-btn {
+    padding: 1.25rem;
+    font-size: 1rem;
+  }
+  
+  .upload-icon {
+    font-size: 3rem;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  }
+  to {
+    text-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+  }
+}
+
+/* OTP and Email Verification Styles */
+.otp-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+}
+
+.otp-container .form-input {
+  flex: 1;
+}
+
+.otp-timer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.otp-timer .btn-link {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.otp-timer .btn-link:hover:not(:disabled) {
+  color: var(--text-primary);
+}
+
+.otp-timer .btn-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.btn-secondary {
+  background: rgba(139, 92, 246, 0.2);
+  color: var(--accent-purple);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+}
+
+.btn-link {
+  background: transparent;
+  color: var(--accent-cyan);
+  border: none;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.btn-link:hover {
+  color: var(--accent-purple);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.otp-timer {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.form-group .btn {
+  margin-left: 1rem;
+  min-width: 120px;
+}
+
+/* Notification Styles */
+.notification {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: slideInRight 0.3s ease;
+}
+
+.notification.success {
+  background: rgba(16, 185, 129, 0.9);
+  border: 1px solid var(--accent-green);
+}
+
+.notification.error {
+  background: rgba(239, 68, 68, 0.9);
+  border: 1px solid #ef4444;
+}
+
+.notification.info {
+  background: rgba(6, 182, 212, 0.9);
+  border: 1px solid var(--accent-cyan);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

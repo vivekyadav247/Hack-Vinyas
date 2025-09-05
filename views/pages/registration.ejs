@@ -1,0 +1,571 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="registration-wrapper">
+  <div class="container registration-container">
+    <header class="reg-header animate-fade-in">
+      <h1 class="reg-title">Team Registration</h1>
+      <p class="reg-subtitle">Join the Hack Vinyas ⚡ Innovation Journey</p>
+    </header>
+
+    <form
+      id="registrationForm"
+      class="registration-form animate-slide-up"
+      method="POST"
+      action="/api/teams/register"
+      enctype="multipart/form-data"
+    >
+      <!-- Step 1: Team Leader Info & OTP -->
+      <div class="step" id="step1" style="display: block">
+        <!-- Required Fields Notice -->
+        <div class="required-info">
+          <i class="fas fa-info-circle"></i>
+          <span
+            >All fields marked with
+            <span style="color: #ef4444; font-weight: bold">*</span> are
+            required. Complete all fields before sending OTP.</span
+          >
+        </div>
+
+        <!-- Line 1: Team Name -->
+        <div class="form-line">
+          <div class="form-group full-width">
+            <label for="teamName"><i class="fas fa-users"></i> Team Name</label>
+            <input
+              type="text"
+              id="teamName"
+              name="teamName"
+              placeholder="Enter your team name"
+              required
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <!-- Line 2: PS Number -->
+        <div class="form-line">
+          <div class="form-group full-width">
+            <label for="psNumber"
+              ><i class="fas fa-hashtag"></i> Problem Statement Number</label
+            >
+            <input
+              type="text"
+              id="psNumber"
+              name="psNumber"
+              placeholder="Enter PS number (e.g., SIH2025-001)"
+              required
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <!-- Line 3: Problem Statement -->
+        <div class="form-line">
+          <div class="form-group full-width">
+            <label for="problemStatement"
+              ><i class="fas fa-lightbulb"></i> Problem Statement</label
+            >
+            <textarea
+              id="problemStatement"
+              name="problemStatement"
+              placeholder="Enter the problem statement title"
+              required
+              class="form-input form-textarea"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Line 4: Team Leader Details -->
+        <div class="form-line leader-section">
+          <h3 class="section-title">
+            <i class="fas fa-crown"></i> Team Leader Details
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="leaderName">Full Name</label>
+              <input
+                type="text"
+                id="leaderName"
+                name="leaderName"
+                placeholder="Enter full name"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="leaderEnrollment">Enrollment Number</label>
+              <input
+                type="text"
+                id="leaderEnrollment"
+                name="leaderEnrollment"
+                placeholder="Enter enrollment number"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="leaderEmail">Email Address</label>
+              <input
+                type="email"
+                id="leaderEmail"
+                name="leaderEmail"
+                placeholder="Enter email address"
+                required
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <!-- OTP Button with spacing -->
+          <div class="otp-button-container">
+            <button type="button" id="sendOtpBtn" class="otp-btn">
+              <i class="fas fa-paper-plane"></i> Send OTP
+            </button>
+          </div>
+        </div>
+
+        <!-- Line 5: OTP Section -->
+        <div
+          class="form-line otp-section"
+          id="otpSection"
+          style="display: none"
+        >
+          <div class="form-group full-width">
+            <label for="otp"><i class="fas fa-shield-alt"></i> Enter OTP</label>
+            <input
+              type="text"
+              id="otp"
+              name="otp"
+              placeholder="Enter 6-digit OTP"
+              maxlength="6"
+              class="form-input otp-input"
+            />
+            <div class="otp-actions">
+              <button type="button" id="verifyOtpBtn" class="otp-btn">
+                <i class="fas fa-check"></i> Verify OTP
+              </button>
+              <button
+                type="button"
+                id="resendOtpBtn"
+                class="resend-btn"
+                disabled
+              >
+                Resend OTP
+              </button>
+            </div>
+            <div class="otp-timer">
+              <span id="otpTimer">Resend OTP in 60s</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Next Button (Hidden initially) -->
+        <div class="form-line" style="display: none" id="nextSection">
+          <button type="button" id="nextBtn" class="next-btn">
+            <i class="fas fa-arrow-right"></i> Continue to Team Details
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Team Members Details -->
+      <div class="step" id="step2" style="display: none">
+        <h3 class="section-title">
+          <i class="fas fa-user-friends"></i> Team Members Details
+        </h3>
+        <div class="section-info">
+          <i class="fas fa-check-circle text-success"></i>
+          <span>OTP Verified! Now complete your team details below:</span>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="form-line member-line">
+          <div class="member-header">
+            Member 2 <span class="required">*</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="member2Name"
+                >Full Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member2Name"
+                name="member2Name"
+                placeholder="Enter full name"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member2Enrollment"
+                >Enrollment Number <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member2Enrollment"
+                name="member2Enrollment"
+                placeholder="Enter enrollment number"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member2Email">Email Address</label>
+              <input
+                type="email"
+                id="member2Email"
+                name="member2Email"
+                placeholder="Enter email address"
+                class="form-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="form-line member-line">
+          <div class="member-header">
+            Member 3 <span class="required">*</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="member3Name"
+                >Full Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member3Name"
+                name="member3Name"
+                placeholder="Enter full name"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member3Enrollment"
+                >Enrollment Number <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member3Enrollment"
+                name="member3Enrollment"
+                placeholder="Enter enrollment number"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member3Email">Email Address</label>
+              <input
+                type="email"
+                id="member3Email"
+                name="member3Email"
+                placeholder="Enter email address"
+                class="form-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="form-line member-line">
+          <div class="member-header">
+            Member 4 <span class="required">*</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="member4Name"
+                >Full Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member4Name"
+                name="member4Name"
+                placeholder="Enter full name"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member4Enrollment"
+                >Enrollment Number <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member4Enrollment"
+                name="member4Enrollment"
+                placeholder="Enter enrollment number"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member4Email">Email Address</label>
+              <input
+                type="email"
+                id="member4Email"
+                name="member4Email"
+                placeholder="Enter email address"
+                class="form-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Member 5 -->
+        <div class="form-line member-line">
+          <div class="member-header">
+            Member 5 <span class="required">*</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="member5Name"
+                >Full Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member5Name"
+                name="member5Name"
+                placeholder="Enter full name"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member5Enrollment"
+                >Enrollment Number <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member5Enrollment"
+                name="member5Enrollment"
+                placeholder="Enter enrollment number"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member5Email">Email Address</label>
+              <input
+                type="email"
+                id="member5Email"
+                name="member5Email"
+                placeholder="Enter email address"
+                class="form-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Member 6 -->
+        <div class="form-line member-line">
+          <div class="member-header">
+            Member 6 <span class="required">*</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="member6Name"
+                >Full Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member6Name"
+                name="member6Name"
+                placeholder="Enter full name"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member6Enrollment"
+                >Enrollment Number <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="member6Enrollment"
+                name="member6Enrollment"
+                placeholder="Enter enrollment number"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member6Email">Email Address</label>
+              <input
+                type="email"
+                id="member6Email"
+                name="member6Email"
+                placeholder="Enter email address"
+                class="form-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Section -->
+        <div class="payment-section" id="paymentSection">
+          <h3 class="section-title">
+            <i class="fas fa-credit-card"></i> Payment Information
+            <span class="required">*</span>
+          </h3>
+          <div class="payment-info-card">
+            <div class="payment-amount">
+              <h4>
+                <i class="fas fa-rupee-sign"></i> Registration Fee: ₹600 per
+                team
+              </h4>
+            </div>
+
+            <!-- Payment Methods -->
+            <!-- Payment QR Code -->
+            <div class="form-line">
+              <div class="form-group full-width">
+                <label class="payment-label"
+                  ><i class="fas fa-qrcode"></i> Payment QR Code</label
+                >
+                <div class="payment-qr-container">
+                  <div class="qr-image-section">
+                    <img
+                      src="/images/payment-qr.jpg"
+                      alt="Payment QR Code"
+                      class="payment-qr-image"
+                      id="paymentQRImage"
+                    />
+                  </div>
+                  <div class="qr-instructions">
+                    <h6>
+                      <i class="fas fa-info-circle"></i> Payment Instructions:
+                    </h6>
+                    <ol>
+                      <li>Scan the QR code using any UPI app</li>
+                      <li>Enter amount: <strong>₹600</strong></li>
+                      <li>Add note: "Team Registration - [Your Team Name]"</li>
+                      <li>Complete the payment</li>
+                      <li>Take screenshot of successful transaction</li>
+                      <li>Upload screenshot and enter transaction ID below</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- Screenshot Upload -->
+          <div class="form-line">
+            <div class="form-group full-width">
+              <label for="paymentScreenshot"
+                ><i class="fas fa-camera"></i> Upload Payment Screenshot
+                <span class="required">*</span></label
+              >
+              <div class="file-upload-container">
+                <input
+                  type="file"
+                  id="paymentScreenshot"
+                  name="paymentScreenshot"
+                  accept="image/*"
+                  required
+                  class="file-input"
+                />
+                <label for="paymentScreenshot" class="file-upload-label">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <span class="file-upload-text"
+                    >Choose screenshot or drag & drop</span
+                  >
+                  <small>Supported formats: JPG, PNG, JPEG (Max 10MB)</small>
+                </label>
+                <div
+                  class="file-preview"
+                  id="screenshotPreview"
+                  style="display: none"
+                >
+                  <img id="screenshotImage" alt="Payment screenshot preview" />
+                  <button
+                    type="button"
+                    class="remove-file"
+                    onclick="removeFile('paymentScreenshot')"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transaction ID -->
+          <div class="form-line">
+            <div class="form-group full-width">
+              <label for="transactionId"
+                ><i class="fas fa-receipt"></i> Transaction ID
+                <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="transactionId"
+                name="transactionId"
+                placeholder="Enter transaction ID/reference number"
+                required
+                class="form-input"
+              />
+              <small class="form-help">
+                <i class="fas fa-lightbulb"></i>
+                Enter the transaction ID/reference number from your payment app
+                (Usually starts with TXN, UPI, REF, etc.)
+              </small>
+            </div>
+          </div>
+
+          <!-- Payment Verification Note -->
+          <div class="payment-verification-note">
+            <div class="verification-icon">
+              <i class="fas fa-shield-check"></i>
+            </div>
+            <div class="verification-text">
+              <h6>Payment Verification</h6>
+              <p>
+                Your payment will be verified within 24 hours. You will receive
+                a confirmation email once verified. Keep your transaction ID for
+                reference.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="submit-btn">
+          <span class="btn-text">
+            <i class="fas fa-rocket"></i> Register Team
+          </span>
+          <span class="btn-loading" style="display: none">
+            <i class="fas fa-spinner fa-spin"></i> Registering...
+          </span>
+        </button>
+      </div>
+
+      <!-- Step 3: Success Message -->
+      <div class="step" id="step3" style="display: none">
+        <div class="success-message">
+          <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h3>Registration Successful!</h3>
+          <div class="success-details">
+            <p><strong>Team ID:</strong> <span id="successTeamId">-</span></p>
+            <p>
+              <strong>Team Size:</strong>
+              <span id="successTeamSize">-</span> members
+            </p>
+            <p>
+              <strong>Payment Status:</strong>
+              <span id="successPaymentStatus">-</span>
+            </p>
+          </div>
+          <p>
+            You will receive a confirmation email shortly. Keep your Team ID for
+            future reference.
+          </p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/registration.js"></script>
