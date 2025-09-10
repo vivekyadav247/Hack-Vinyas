@@ -71,6 +71,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
+      // Check reCAPTCHA
+      const recaptchaResponse = grecaptcha.getResponse();
+      if (!recaptchaResponse) {
+        showError("Please complete the reCAPTCHA verification");
+        return;
+      }
+
       sendOtpBtn.disabled = true;
       sendOtpBtn.textContent = "Sending...";
 
@@ -84,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
             action: "send_otp",
             email: email,
             name: name,
+            recaptchaToken: recaptchaResponse,
           }),
         });
 
@@ -235,10 +243,21 @@ document.addEventListener("DOMContentLoaded", function () {
       submitBtn.textContent = "Registering...";
 
       try {
+        // Get reCAPTCHA response from checkbox
+        console.log("🔒 Checking reCAPTCHA...");
+        const recaptchaResponse = grecaptcha.getResponse();
+
+        if (!recaptchaResponse) {
+          throw new Error("Please complete the reCAPTCHA verification");
+        }
+
         const formData = new FormData();
 
         // Add action
         formData.append("action", "register_team");
+
+        // Add reCAPTCHA token
+        formData.append("recaptchaToken", recaptchaResponse);
 
         // Add all form fields
         const inputs = form.querySelectorAll("input, select, textarea");

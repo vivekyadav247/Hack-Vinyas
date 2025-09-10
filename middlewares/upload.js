@@ -145,9 +145,13 @@ const uploadConfigs = {
 
 // Middleware functions
 const uploadMiddleware = {
-  // Single PPT file upload
+  // Single PPT file upload with text fields
   uploadPPT: (req, res, next) => {
-    uploadConfigs.pptSubmission.single("pptFile")(req, res, (err) => {
+    uploadConfigs.pptSubmission.fields([
+      { name: "pptFile", maxCount: 1 },
+      { name: "email", maxCount: 1 },
+      { name: "otp", maxCount: 1 },
+    ])(req, res, (err) => {
       if (err instanceof multer.MulterError) {
         if (err.code === "LIMIT_FILE_SIZE") {
           return res.status(400).json({
@@ -173,20 +177,23 @@ const uploadMiddleware = {
       }
 
       // Check if file was uploaded
-      if (!req.file) {
+      if (!req.files || !req.files.pptFile || req.files.pptFile.length === 0) {
         return res.status(400).json({
           success: false,
           message: "No file uploaded. Please select a PPT, PPTX, or PDF file.",
         });
       }
 
+      const file = req.files.pptFile[0];
+
       // Add file metadata to request
+      req.file = file; // Make it compatible with existing code
       req.fileData = {
-        originalName: req.file.originalname,
-        filename: req.file.filename,
-        path: req.file.path,
-        size: req.file.size,
-        mimeType: req.file.mimetype,
+        originalName: file.originalname,
+        filename: file.filename,
+        path: file.path,
+        size: file.size,
+        mimeType: file.mimetype,
         uploadDate: new Date(),
       };
 

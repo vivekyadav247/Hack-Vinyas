@@ -74,7 +74,18 @@ router.post(
   uploadMiddleware.uploadPPT,
   async (req, res) => {
     try {
+      console.log("📥 PPT Submission Request Body:", req.body);
+      console.log(
+        "📁 Uploaded File:",
+        req.file ? req.file.originalname : "No file"
+      );
+
       const { email, otp } = req.body;
+
+      console.log("🔍 Extracted Data:", {
+        email,
+        otp,
+      });
 
       if (!email || !otp) {
         // Delete uploaded file if validation fails

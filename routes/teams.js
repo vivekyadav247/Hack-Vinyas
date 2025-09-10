@@ -5,6 +5,7 @@ const OTP = require("../models/OTP");
 const PPTSubmission = require("../models/PPTSubmission");
 const emailService = require("../utils/emailService");
 const { uploadMiddleware } = require("../middlewares/upload");
+const { verifyRecaptchaMiddleware } = require("../utils/recaptcha");
 
 // Route 1: GET - Render registration form
 router.get("/register", (req, res) => {
@@ -146,6 +147,31 @@ router.post(
         });
       } else if (action === "register_team") {
         // TEAM REGISTRATION LOGIC
+
+        // First verify reCAPTCHA
+        const recaptchaToken =
+          req.body.recaptchaToken || req.body["g-recaptcha-response"];
+        if (!recaptchaToken) {
+          return res.status(400).json({
+            success: false,
+            message: "Please complete the reCAPTCHA verification.",
+          });
+        }
+
+        // Verify reCAPTCHA
+        const { verifyRecaptcha } = require("../utils/recaptcha");
+        const recaptchaResult = await verifyRecaptcha(recaptchaToken, req.ip);
+
+        if (!recaptchaResult.success) {
+          return res.status(400).json({
+            success: false,
+            message: "Please complete the reCAPTCHA verification.",
+            error: recaptchaResult.error,
+          });
+        }
+
+        console.log("✅ reCAPTCHA verified for team registration");
+
         // Extract and validate required fields
         const {
           teamName,

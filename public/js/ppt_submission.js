@@ -37,6 +37,31 @@ function initializePPTSubmission() {
   document
     .getElementById("pptForm")
     .addEventListener("submit", handleFormSubmission);
+
+  // Check form validity immediately since no reCAPTCHA is required
+}
+
+// Check if form is ready for submission
+function checkFormValidity() {
+  const submitBtn = document.getElementById("submitBtn");
+  const fileInput = document.getElementById("pptFile");
+
+  const hasFile = fileInput.files.length > 0;
+  const isOtpValid = isOtpVerified;
+
+  console.log("Form validity check:", {
+    hasFile,
+    isOtpValid,
+  });
+
+  // Enable submit button only if all conditions are met
+  if (hasFile && isOtpValid) {
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = "1";
+  } else {
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = "0.6";
+  }
 }
 
 // Email verification and OTP functions
@@ -95,7 +120,9 @@ function sendOTPToEmail(email, teamName) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({
+      email,
+    }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -155,6 +182,9 @@ function verifyOTP() {
     .then((data) => {
       if (data.success) {
         isOtpVerified = true;
+
+        // Check form validity after OTP verification
+        checkFormValidity();
 
         // Update UI to show verification success
         const otpInput = document.getElementById("otp");
@@ -388,14 +418,12 @@ function simulateUploadProgress() {
 }
 
 function updateSubmitButton() {
-  const submitBtn = document.getElementById("submitBtn");
-  const hasFile = document.getElementById("pptFile").files.length > 0;
-
-  submitBtn.disabled = !(isOtpVerified && hasFile);
+  // Use the new checkFormValidity function instead
+  checkFormValidity();
 }
 
 // Form submission
-function handleFormSubmission(event) {
+async function handleFormSubmission(event) {
   event.preventDefault();
 
   if (!isOtpVerified) {
@@ -417,45 +445,53 @@ function handleFormSubmission(event) {
   submitBtn.classList.add("loading");
   submitBtn.disabled = true;
 
-  // Create FormData for file upload
-  const formData = new FormData();
-  formData.append("pptFile", fileInput.files[0]);
-  formData.append("email", email);
-  formData.append("otp", otp);
+  try {
+    // Create FormData for file upload
+    const formData = new FormData();
+    formData.append("pptFile", fileInput.files[0]);
+    formData.append("email", email);
+    formData.append("otp", otp);
 
-  // Submit to verified endpoint
-  fetch("/api/upload/ppt-submission-verified", {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      submitBtn.classList.remove("loading");
-      submitBtn.disabled = false;
+    console.log("📤 Sending FormData:");
+    console.log("Email:", email);
+    console.log("OTP:", otp);
+    console.log("File:", fileInput.files[0].name);
 
-      if (data.success) {
-        showNotification("PPT submitted successfully!", "success");
-
-        // Show success details
-        showSuccessDetails(data.submission);
-
-        // Redirect after success
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 3000);
-      } else {
-        showNotification(
-          data.message || "Failed to submit PPT. Please try again.",
-          "error"
-        );
-      }
-    })
-    .catch((error) => {
-      console.error("Error submitting PPT:", error);
-      submitBtn.classList.remove("loading");
-      submitBtn.disabled = false;
-      showNotification("Network error. Please try again.", "error");
+    // Submit to verified endpoint
+    const response = await fetch("/api/upload/ppt-submission-verified", {
+      method: "POST",
+      body: formData,
     });
+
+    const data = await response.json();
+    submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
+
+    if (data.success) {
+      showNotification("PPT submitted successfully!", "success");
+
+      // Show success details
+      showSuccessDetails(data.submission);
+
+      // Redirect after success
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 3000);
+    } else {
+      showNotification(
+        data.message || "Failed to submit PPT. Please try again.",
+        "error"
+      );
+    }
+  } catch (error) {
+    console.error("Error submitting PPT:", error);
+    submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
+    showNotification(
+      error.message || "Network error. Please try again.",
+      "error"
+    );
+  }
 }
 
 function showSuccessDetails(submission) {

@@ -118,6 +118,11 @@
 
           <!-- OTP Button with spacing -->
           <div class="otp-button-container">
+            <!-- reCAPTCHA Checkbox -->
+            <div class="recaptcha-container" style="margin-bottom: 15px;">
+              <div class="g-recaptcha" data-sitekey="6LfVzcQrAAAAAGKL8g_8ld6QXssSqYtaK2NMGUMB"></div>
+            </div>
+            
             <button type="button" id="sendOtpBtn" class="otp-btn">
               <i class="fas fa-paper-plane"></i> Send OTP
             </button>
@@ -528,6 +533,9 @@
             </div>
           </div>
         </div>
+
+        <!-- reCAPTCHA token field (hidden) -->
+        <input type="hidden" id="recaptchaToken" name="recaptchaToken" />
 
         <!-- Submit Button -->
         <button type="submit" id="submitBtn" class="submit-btn">

@@ -39,6 +39,21 @@
     <link rel="stylesheet" type="text/css" href="/css/admin.css" />
     <% } %>
 
+    <!-- Google reCAPTCHA v2 Checkbox -->
+    <script
+      src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad"
+      async
+      defer
+    ></script>
+    <script>
+      function onRecaptchaLoad() {
+        console.log("reCAPTCHA API loaded");
+        if (typeof window.recaptchaReadyCallback === "function") {
+          window.recaptchaReadyCallback();
+        }
+      }
+    </script>
+
     <!-- Additional head content -->
     <% if (typeof additionalHead !== 'undefined') { %> <%- additionalHead %> <%
     } %>
@@ -58,7 +73,7 @@
 
     <!-- Custom JS -->
     <% if (typeof jsFile !== 'undefined') { %>
-    <script src="/js/<%- jsFile %>"></script>
+    <script src="/js/<%- jsFile %>?v=<%= Date.now() %>"></script>
     <% } %>
 
     <!-- Additional scripts -->
