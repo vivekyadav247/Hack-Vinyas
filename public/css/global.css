@@ -51,7 +51,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  background:
     radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 40% 70%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
@@ -60,8 +60,13 @@ body::before {
 }
 
 @keyframes backgroundFloat {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(-20px, -20px) rotate(1deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-20px, -20px) rotate(1deg);
+  }
 }
 
 /* Typography */
@@ -82,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   font-weight: 700;
   color: var(--text-primary);
-  text-shadow: 
+  text-shadow:
     0 0 10px var(--neon-blue),
     0 0 20px var(--neon-blue),
     0 0 40px var(--neon-blue);
@@ -90,12 +95,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
 }
 
 /* Buttons */
@@ -127,12 +149,27 @@ h1, h2, h3, h4, h5, h6 {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.5s;
 }
 
 .btn-neon:hover::before {
   left: 100%;
+}
+
+/* Ensure anchor tags with btn-neon class look and behave like buttons */
+a.btn-neon {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+a.btn-neon:hover,
+a.btn-neon:focus,
+a.btn-neon:active {
+  color: white;
+  text-decoration: none;
 }
 
 .btn-outline-neon {
@@ -236,11 +273,11 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent;
 }
 
-.navbar-neon.navbar-hidden + .navbar-hover-zone {
+.navbar-neon.navbar-hidden+.navbar-hover-zone {
   pointer-events: auto;
 }
 
-.navbar-neon:not(.navbar-hidden) + .navbar-hover-zone {
+.navbar-neon:not(.navbar-hidden)+.navbar-hover-zone {
   pointer-events: none;
 }
 
@@ -372,8 +409,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%, 100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .float-animation {
@@ -381,8 +423,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .pulse-animation {
@@ -435,7 +482,7 @@ h1, h2, h3, h4, h5, h6 {
   .section-padding {
     padding: 40px 0;
   }
-  
+
   .glitch-text {
     font-size: 2rem;
   }
@@ -452,10 +499,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes loading-dots {
-  0%, 20% { content: ''; }
-  40% { content: '.'; }
-  60% { content: '..'; }
-  80%, 100% { content: '...'; }
+  0%, 20% {
+    content: '';
+  }
+
+  40% {
+    content: '.';
+  }
+
+  60% {
+    content: '..';
+  }
+
+  80%, 100% {
+    content: '...';
+  }
 }
 
 /* Footer Styling - Global */
@@ -602,6 +660,7 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
     filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.6));
   }
+
   to {
     text-shadow: 0 0 25px rgba(6, 182, 212, 0.8);
     filter: drop-shadow(0 0 25px rgba(6, 182, 212, 0.8));
@@ -614,7 +673,7 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .footer-bottom-content {
     flex-direction: column;
     text-align: center;

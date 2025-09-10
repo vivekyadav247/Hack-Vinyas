@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeAutoHideNavbar();
   initializeDropdownNavigation();
   initializeHoverDropdown();
+
+  // Fix button functionality
+  initializeButtonHandlers();
 });
 
 // Enhanced scroll animations
@@ -644,3 +647,57 @@ function initializeHoverDropdown() {
 document.addEventListener("DOMContentLoaded", () => {
   initializeDropdownNavigation();
 });
+
+// Fix button functionality
+function initializeButtonHandlers() {
+  console.log("🔧 Initializing Chrome-compatible button handlers...");
+
+  // Chrome-specific fixes - Force enable clicks on all buttons
+  const allBtns = document.querySelectorAll(".btn-neon, .btn");
+  allBtns.forEach((btn, index) => {
+    // Remove any existing problematic attributes
+    btn.style.pointerEvents = "auto";
+    btn.style.cursor = "pointer";
+
+    // Force Z-index to ensure buttons are clickable
+    btn.style.zIndex = "999";
+    btn.style.position = "relative";
+
+    console.log(`✅ Chrome-fixed button ${index + 1}`);
+  });
+
+  // Legacy fallback for onclick buttons if any remain
+  const onclickButtons = document.querySelectorAll(
+    "button[onclick], a[onclick]"
+  );
+  onclickButtons.forEach((btn) => {
+    const onclickAttr = btn.getAttribute("onclick");
+    if (onclickAttr) {
+      btn.removeAttribute("onclick");
+
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        try {
+          // Safe execution
+          if (onclickAttr.includes("window.location.href")) {
+            const urlMatch = onclickAttr.match(/['"`]([^'"`]+)['"`]/);
+            if (urlMatch) {
+              const url = urlMatch[1];
+              if (url.startsWith("http")) {
+                window.open(url, "_blank");
+              } else {
+                window.location.href = url;
+              }
+            }
+          }
+        } catch (error) {
+          console.error("Button click error:", error);
+        }
+      });
+    }
+  });
+
+  console.log("🎉 Chrome-compatible handlers initialized!");
+}

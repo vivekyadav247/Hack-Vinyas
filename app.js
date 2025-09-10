@@ -76,6 +76,7 @@ app.use(
 );
 
 app.use("/images", express.static(path.join(__dirname, "public/images")));
+app.use("/downloads", express.static(path.join(__dirname, "public/downloads")));
 
 // Body parser middleware
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
