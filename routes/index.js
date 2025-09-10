@@ -27,6 +27,7 @@ router.get("/register", (req, res) => {
     cssFile: "registration.css",
     jsFile: "registration.js",
     currentPage: "registration",
+    recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
   });
 });
 

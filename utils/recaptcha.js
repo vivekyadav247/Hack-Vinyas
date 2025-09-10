@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 
 // reCAPTCHA v2 Checkbox configuration
-const RECAPTCHA_SECRET_KEY = "6LfVzcQrAAAAALnQ-VbWgRTMoDjtT-KvSyykuNht";
-const RECAPTCHA_SITE_KEY = "6LfVzcQrAAAAAGKL8g_8ld6QXssSqYtaK2NMGUMB";
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY;
 const RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
 
 /**

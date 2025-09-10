@@ -14,6 +14,7 @@ router.get("/register", (req, res) => {
       title: "Team Registration",
       error: null,
       success: null,
+      recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
     });
   } catch (error) {
     console.error("Registration page render error:", error);
