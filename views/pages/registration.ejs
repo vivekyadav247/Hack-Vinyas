@@ -534,11 +534,28 @@
           </div>
         </div>
 
+        <!-- reCAPTCHA for Team Registration -->
+        <div class="form-line">
+          <div class="form-group full-width">
+            <label class="recaptcha-label">
+              <i class="fas fa-shield-alt"></i> Security Verification
+              <span class="required">*</span>
+            </label>
+            <div class="recaptcha-container" style="margin-top: 10px;">
+              <div class="g-recaptcha" data-sitekey="<%= recaptchaSiteKey %>"></div>
+            </div>
+            <small class="form-help">
+              <i class="fas fa-info-circle"></i>
+              Please complete the security verification to submit your team registration.
+            </small>
+          </div>
+        </div>
+
         <!-- reCAPTCHA token field (hidden) -->
         <input type="hidden" id="recaptchaToken" name="recaptchaToken" />
 
         <!-- Submit Button -->
-        <button type="submit" id="submitBtn" class="submit-btn">
+        <button type="button" id="submitBtn" class="submit-btn">
           <span class="btn-text">
             <i class="fas fa-rocket"></i> Register Team
           </span>

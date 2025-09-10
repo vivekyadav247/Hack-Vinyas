@@ -12,6 +12,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentStep = 1;
   let isEmailVerified = false;
+  let recaptchaVerified = false;
+
+  // Function to hide reCAPTCHA
+  function hideRecaptcha() {
+    const recaptchaContainer = document.querySelector('.recaptcha-container');
+    if (recaptchaContainer) {
+      recaptchaContainer.style.display = 'none';
+      console.log('🔒 reCAPTCHA hidden after verification');
+    }
+  }
+
+  // Debug function to check verification status
+  function debugVerificationStatus() {
+    console.log("🔍 Verification Status:");
+    console.log("  - isEmailVerified:", isEmailVerified);
+    console.log("  - recaptchaVerified:", recaptchaVerified);
+    console.log("  - Current Step:", currentStep);
+    console.log(
+      "  - OTP Section Display:",
+      document.getElementById("otpSection")?.style.display
+    );
+    console.log(
+      "  - Next Section Display:",
+      document.getElementById("nextSection")?.style.display
+    );
+  }
 
   console.log("🔍 Form elements found:", {
     form: !!form,
@@ -100,9 +126,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (result.success) {
           showSuccess(result.message);
+          console.log("✅ OTP sent successfully");
+
+          // Show OTP section
           document.getElementById("otpSection").style.display = "block";
+
+          // Hide send OTP button temporarily
+          sendOtpBtn.style.display = "none";
+
+          // Start OTP timer
+          startOTPTimer();
         } else {
           showError(result.message);
+          console.log("❌ OTP send failed:", result.message);
         }
       } catch (error) {
         console.error("❌ OTP send error:", error);
@@ -149,9 +185,31 @@ document.addEventListener("DOMContentLoaded", function () {
         if (result.success) {
           showSuccess(result.message);
           isEmailVerified = true;
+          recaptchaVerified = true; // Mark reCAPTCHA as verified since it was checked during OTP send
+
+          console.log(
+            "✅ Email verified successfully, isEmailVerified:",
+            isEmailVerified
+          );
+
+          // Hide reCAPTCHA since it's already verified
+          hideRecaptcha();
+
+          // Show next section and update UI
           document.getElementById("nextSection").style.display = "block";
+          document.getElementById("otpSection").style.display = "none";
+
+          // Enable submit button
+          const submitBtn = document.getElementById("submitBtn");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+          }
+
+          debugVerificationStatus();
         } else {
           showError(result.message);
+          console.log("❌ OTP verification failed:", result.message);
         }
       } catch (error) {
         console.error("❌ OTP verification error:", error);
@@ -180,11 +238,15 @@ document.addEventListener("DOMContentLoaded", function () {
     submitBtn.addEventListener("click", async function (e) {
       e.preventDefault();
       console.log("📝 Submit button clicked");
+      debugVerificationStatus();
 
       if (!isEmailVerified) {
         showError("Please verify your email first");
+        console.log("❌ Submission blocked: Email not verified");
         return;
       }
+
+      console.log("✅ Email verified, proceeding with submission");
 
       // Validate payment fields
       const paymentScreenshot = document.getElementById("paymentScreenshot");
@@ -243,21 +305,27 @@ document.addEventListener("DOMContentLoaded", function () {
       submitBtn.textContent = "Registering...";
 
       try {
-        // Get reCAPTCHA response from checkbox
-        console.log("🔒 Checking reCAPTCHA...");
-        const recaptchaResponse = grecaptcha.getResponse();
-
-        if (!recaptchaResponse) {
-          throw new Error("Please complete the reCAPTCHA verification");
-        }
-
         const formData = new FormData();
 
         // Add action
         formData.append("action", "register_team");
 
-        // Add reCAPTCHA token
-        formData.append("recaptchaToken", recaptchaResponse);
+        // Only add reCAPTCHA token if not already verified
+        if (!recaptchaVerified) {
+          // Get reCAPTCHA response from checkbox
+          console.log("🔒 Checking reCAPTCHA...");
+          const recaptchaResponse = grecaptcha.getResponse();
+
+          if (!recaptchaResponse) {
+            throw new Error("Please complete the reCAPTCHA verification");
+          }
+
+          // Add reCAPTCHA token
+          formData.append("recaptchaToken", recaptchaResponse);
+          console.log("✅ reCAPTCHA token added for registration");
+        } else {
+          console.log("✅ Skipping reCAPTCHA - already verified in session");
+        }
 
         // Add all form fields
         const inputs = form.querySelectorAll("input, select, textarea");
@@ -282,8 +350,12 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("📝 Registration response:", result);
 
         if (result.success) {
+          console.log("✅ Registration successful:", result);
           showSuccess(result.message);
           showStep(3); // Show success step
+
+          // Reset form state
+          isEmailVerified = false;
 
           // Show registration details
           if (document.getElementById("successTeamId")) {
@@ -299,14 +371,22 @@ document.addEventListener("DOMContentLoaded", function () {
               result.paymentStatus || "pending";
           }
         } else {
-          showError(result.message);
+          console.log("❌ Registration failed:", result);
+          showError(result.message || "Registration failed. Please try again.");
         }
       } catch (error) {
         console.error("❌ Registration error:", error);
         showError("Registration failed. Please try again.");
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Register Team";
+        submitBtn.innerHTML = `
+          <span class="btn-text">
+            <i class="fas fa-rocket"></i> Register Team
+          </span>
+          <span class="btn-loading" style="display: none">
+            <i class="fas fa-spinner fa-spin"></i> Registering...
+          </span>
+        `;
       }
     });
   }
@@ -314,6 +394,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize form
   showStep(1);
   setupFileUpload();
+
+  // Initial setup - disable submit button until email is verified
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = "0.6";
+    console.log(
+      "🔒 Submit button initially disabled - waiting for email verification"
+    );
+  }
+
+  debugVerificationStatus();
   console.log("✅ Registration form initialized");
 });
 
@@ -389,4 +480,26 @@ function removeFile(inputId) {
     uploadLabel.style.display = "flex";
     console.log("🗑️ Payment screenshot removed");
   }
+}
+
+// OTP Timer function
+function startOTPTimer() {
+  let timeLeft = 60;
+  const timerElement = document.getElementById("otpTimer");
+  const resendBtn = document.getElementById("resendOtpBtn");
+
+  if (!timerElement) return;
+
+  const countdown = setInterval(() => {
+    timeLeft--;
+    timerElement.textContent = `Resend OTP in ${timeLeft}s`;
+
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      timerElement.textContent = "OTP expired";
+      if (resendBtn) {
+        resendBtn.style.display = "inline-block";
+      }
+    }
+  }, 1000);
 }

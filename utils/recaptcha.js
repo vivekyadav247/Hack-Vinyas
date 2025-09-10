@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 
 // reCAPTCHA v2 Checkbox configuration
 const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
@@ -20,24 +20,22 @@ async function verifyRecaptcha(token, remoteip = null) {
       };
     }
 
-    // Prepare the request body for v2 verification
-    const params = new URLSearchParams();
-    params.append("secret", RECAPTCHA_SECRET_KEY);
-    params.append("response", token);
-    if (remoteip) {
-      params.append("remoteip", remoteip);
-    }
-
     // Make request to Google's verification API
-    const response = await fetch(RECAPTCHA_VERIFY_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+    const response = await axios.post(
+      RECAPTCHA_VERIFY_URL,
+      {
+        secret: RECAPTCHA_SECRET_KEY,
+        response: token,
+        ...(remoteip && { remoteip }),
       },
-      body: params,
-    });
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
 
-    const data = await response.json();
+    const data = response.data;
 
     return {
       success: data.success,
