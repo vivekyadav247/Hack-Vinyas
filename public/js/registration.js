@@ -119,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function () {
             action: "send_otp",
             email: email,
             name: name,
-            recaptchaToken: recaptchaResponse,
           }),
         });
 
