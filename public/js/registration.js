@@ -16,10 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to hide reCAPTCHA
   function hideRecaptcha() {
-    const recaptchaContainer = document.querySelector('.recaptcha-container');
+    const recaptchaContainer = document.querySelector(".recaptcha-container");
     if (recaptchaContainer) {
-      recaptchaContainer.style.display = 'none';
-      console.log('🔒 reCAPTCHA hidden after verification');
+      recaptchaContainer.style.display = "none";
+      console.log("🔒 reCAPTCHA hidden after verification");
     }
   }
 
@@ -97,10 +97,12 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Check reCAPTCHA
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (!recaptchaResponse) {
-        showError("Please complete the reCAPTCHA verification");
+      const token = form.querySelector(
+        'input[name="cf-turnstile-response"]'
+      )?.value;
+
+      if (!token) {
+        alert("Please complete captcha before submitting!");
         return;
       }
 

@@ -6,6 +6,7 @@ const PPTSubmission = require("../models/PPTSubmission");
 const emailService = require("../utils/emailService");
 const { uploadMiddleware } = require("../middlewares/upload");
 const { verifyRecaptchaMiddleware } = require("../utils/recaptcha");
+const axios = require("axios");
 
 // Route 1: GET - Render registration form
 router.get("/register", (req, res) => {
@@ -88,6 +89,13 @@ router.post(
             remoteip: req.ip,
           })
         );
+        if (!response.data.success) {
+          return res.status(400).json({
+            success: false,
+            message: "reCAPTCHA verification failed",
+          });
+        }
+
         // Save OTP to database
         const otpRecord = new OTP({
           email: email.toLowerCase(),
