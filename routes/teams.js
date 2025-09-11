@@ -34,6 +34,7 @@ router.post(
 
       // Handle different actions in one POST route
       if (action === "send_otp") {
+        const token = req.body["cf-turnstile-response"];
         // OTP SENDING LOGIC
         const { email, name } = req.body;
 
@@ -79,6 +80,14 @@ router.post(
         // Generate and send OTP
         const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
+        const response = await axios.post(
+          "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+          new URLSearchParams({
+            secret: process.env.CLOUDFLARE_SECRET_KEY,
+            response: token,
+            remoteip: req.ip,
+          })
+        );
         // Save OTP to database
         const otpRecord = new OTP({
           email: email.toLowerCase(),
