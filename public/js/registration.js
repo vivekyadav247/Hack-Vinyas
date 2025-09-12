@@ -314,17 +314,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Only add reCAPTCHA token if not already verified
         if (!recaptchaVerified) {
-          // Get reCAPTCHA response from checkbox
           console.log("🔒 Checking reCAPTCHA...");
-          const recaptchaResponse = grecaptcha.getResponse();
-
-          if (!recaptchaResponse) {
+          const token = form.querySelector('input[name="cf-turnstile-response"]')?.value;
+        
+          if (!token) {
             throw new Error("Please complete the reCAPTCHA verification");
           }
-
-          // Add reCAPTCHA token
-          formData.append("recaptchaToken", recaptchaResponse);
-          console.log("✅ reCAPTCHA token added for registration");
+        
+          formData.append("recaptchaToken", token);
+          console.log("✅ Turnstile token added for registration");
         } else {
           console.log("✅ Skipping reCAPTCHA - already verified in session");
         }
