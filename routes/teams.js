@@ -167,28 +167,7 @@ router.post(
         // TEAM REGISTRATION LOGIC
 
         // First verify reCAPTCHA
-        const recaptchaToken =
-          req.body.recaptchaToken || req.body["recaptchaToken"];
-        if (!recaptchaToken) {
-          return res.status(400).json({
-            success: false,
-            message: "Please complete the reCAPTCHA verification.",
-          });
-        }
 
-        // Verify reCAPTCHA
-        const { verifyRecaptcha } = require("../utils/recaptcha");
-        const recaptchaResult = await verifyRecaptcha(recaptchaToken, req.ip);
-
-        if (!recaptchaResult.success) {
-          return res.status(400).json({
-            success: false,
-            message: "Please complete the reCAPTCHA verification.",
-            error: recaptchaResult.error,
-          });
-        }
-
-        console.log("✅ reCAPTCHA verified for team registration");
 
         // Extract and validate required fields
         const {
