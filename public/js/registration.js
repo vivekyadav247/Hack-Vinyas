@@ -312,20 +312,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Add action
         formData.append("action", "register_team");
 
-        // Only add reCAPTCHA token if not already verified
-        if (!recaptchaVerified) {
-          console.log("🔒 Checking reCAPTCHA...");
-          const token = form.querySelector('input[name="cf-turnstile-response"]')?.value;
         
-          if (!token) {
-            throw new Error("Please complete the reCAPTCHA verification");
-          }
-        
-          formData.append("recaptchaToken", token);
-          console.log("✅ Turnstile token added for registration");
-        } else {
-          console.log("✅ Skipping reCAPTCHA - already verified in session");
-        }
 
         // Add all form fields
         const inputs = form.querySelectorAll("input, select, textarea");
