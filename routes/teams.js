@@ -168,7 +168,7 @@ router.post(
 
         // First verify reCAPTCHA
         const recaptchaToken =
-          req.body.recaptchaToken || req.body["g-recaptcha-response"];
+          req.body.recaptchaToken || req.body["recaptchaToken"];
         if (!recaptchaToken) {
           return res.status(400).json({
             success: false,
